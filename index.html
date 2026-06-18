@@ -144,6 +144,8 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--paper);
 </head>
 <body>
 
+<div id="mobile-msg" style="position:fixed;inset:0;z-index:70;background:#12151a;display:none;align-items:center;justify-content:center;padding:40px;"><p style="font-family:'Neuton',serif;font-style:italic;font-size:24px;color:#f0f0f0;line-height:1.6;text-align:center;max-width:400px;">Unfortunately, this website was not designed for mobile and works best on desktop.</p></div>
+
 <div id="loading">
   <div id="load-title">Fourth Spaces</div>
   <div id="load-track"><div id="load-fill"></div></div>
@@ -898,6 +900,9 @@ window.addEventListener('resize',()=>{
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 async function init(){
+  const isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)&&window.innerWidth<1024;
+  if(isMobile){document.getElementById('mobile-msg').style.display='flex';document.getElementById('loading').style.display='none';return;}
+  
   document.getElementById('load-label').textContent='loading';
   SCANS=await fetchScans();
   await preload(SCANS);
